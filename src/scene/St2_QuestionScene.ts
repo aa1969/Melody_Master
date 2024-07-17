@@ -5,7 +5,9 @@ import { CustomButton } from './CustomButton';
 export class St2_QuestionScene extends Phaser.Scene {
     private keys: PianoKey[] = [];
     private numkeys: NumberKey[] = [];
-    private correctNote: string | null = null;
+    private fNote: string | null = null;
+    private sNote: string | null = null;
+    private correctnum: number = 0;
     private questionCount: number = 0;
     private score: number = 0;
     private scoretext: Phaser.GameObjects.Text | null = null;
@@ -71,51 +73,51 @@ export class St2_QuestionScene extends Phaser.Scene {
       this.cameras.main.setBackgroundColor(0xADD8E6);
 
       // ピアノのキーの部分の背景を黒に設定
-      const pianoBackground = this.add.rectangle(width / 2, 575, 1052, 204, 0x000000).setOrigin(0.5);
+      const pianoBackground = this.add.rectangle(width / 2, 600, 1052, 204, 0x000000).setOrigin(0.5);
   
       // キーの設定
       this.keys = [
-        { note: 'C0', x: 140, isBlack: false },
-        { note: 'C#0', x: 160, isBlack: true },
-        { note: 'D0', x: 190, isBlack: false },
-        { note: 'D#0', x: 220, isBlack: true },
-        { note: 'E0', x: 240, isBlack: false },
-        { note: 'F0', x: 290, isBlack: false },
-        { note: 'F#0', x: 310, isBlack: true },
-        { note: 'G0', x: 340, isBlack: false },
-        { note: 'G#0', x: 365, isBlack: true },
-        { note: 'A0', x: 390, isBlack: false },
-        { note: 'A#0', x: 420, isBlack: true },
-        { note: 'B0', x: 440, isBlack: false },
-        { note: 'C1', x: 490, isBlack: false },
-        { note: 'C#1', x: 510, isBlack: true },
-        { note: 'D1', x: 540, isBlack: false },
-        { note: 'D#1', x: 570, isBlack: true },
-        { note: 'E1', x: 590, isBlack: false },
-        { note: 'F1', x: 640, isBlack: false },
-        { note: 'F#1', x: 660, isBlack: true },
-        { note: 'G1', x: 690, isBlack: false },
-        { note: 'G#1', x: 715, isBlack: true },
-        { note: 'A1', x: 740, isBlack: false },
-        { note: 'A#1', x: 770, isBlack: true },
-        { note: 'B1', x: 790, isBlack: false },
-        { note: 'C2', x: 840, isBlack: false },
-        { note: 'C#2', x: 860, isBlack: true },
-        { note: 'D2', x: 890, isBlack: false },
-        { note: 'D#2', x: 920, isBlack: true },
-        { note: 'E2', x: 940, isBlack: false },
-        { note: 'F2', x: 990, isBlack: false },
-        { note: 'F#2', x: 1010, isBlack: true },
-        { note: 'G2', x: 1040, isBlack: false },
-        { note: 'G#2', x: 1065, isBlack: true },
-        { note: 'A2', x: 1090, isBlack: false },
-        { note: 'A#2', x: 1120, isBlack: true },
-        { note: 'B2', x: 1140, isBlack: false },
+        { note: 'C0', x: 140, isBlack: false, keynum: 0 },
+        { note: 'C#0', x: 160, isBlack: true, keynum: 1 },
+        { note: 'D0', x: 190, isBlack: false, keynum: 2 },
+        { note: 'D#0', x: 220, isBlack: true, keynum: 3 },
+        { note: 'E0', x: 240, isBlack: false, keynum: 4 },
+        { note: 'F0', x: 290, isBlack: false, keynum: 5 },
+        { note: 'F#0', x: 310, isBlack: true, keynum: 6 },
+        { note: 'G0', x: 340, isBlack: false, keynum: 7 },
+        { note: 'G#0', x: 365, isBlack: true, keynum: 8 },
+        { note: 'A0', x: 390, isBlack: false, keynum: 9 },
+        { note: 'A#0', x: 420, isBlack: true, keynum: 10 },
+        { note: 'B0', x: 440, isBlack: false, keynum: 11 },
+        { note: 'C1', x: 490, isBlack: false, keynum: 12 },
+        { note: 'C#1', x: 510, isBlack: true, keynum: 13 },
+        { note: 'D1', x: 540, isBlack: false, keynum: 14 },
+        { note: 'D#1', x: 570, isBlack: true, keynum: 15 },
+        { note: 'E1', x: 590, isBlack: false, keynum: 16 },
+        { note: 'F1', x: 640, isBlack: false, keynum: 17 },
+        { note: 'F#1', x: 660, isBlack: true, keynum: 18 },
+        { note: 'G1', x: 690, isBlack: false, keynum: 19 },
+        { note: 'G#1', x: 715, isBlack: true, keynum: 20 },
+        { note: 'A1', x: 740, isBlack: false, keynum: 21 },
+        { note: 'A#1', x: 770, isBlack: true, keynum: 22 },
+        { note: 'B1', x: 790, isBlack: false, keynum: 23 },
+        { note: 'C2', x: 840, isBlack: false, keynum: 24 },
+        { note: 'C#2', x: 860, isBlack: true, keynum: 25 },
+        { note: 'D2', x: 890, isBlack: false, keynum: 26 },
+        { note: 'D#2', x: 920, isBlack: true, keynum: 27 },
+        { note: 'E2', x: 940, isBlack: false, keynum: 28 },
+        { note: 'F2', x: 990, isBlack: false, keynum: 29 },
+        { note: 'F#2', x: 1010, isBlack: true, keynum: 30 },
+        { note: 'G2', x: 1040, isBlack: false, keynum: 31 },
+        { note: 'G#2', x: 1065, isBlack: true, keynum: 32 },
+        { note: 'A2', x: 1090, isBlack: false, keynum: 33 },
+        { note: 'A#2', x: 1120, isBlack: true, keynum: 34 },
+        { note: 'B2', x: 1140, isBlack: false, keynum: 35 },
       ];
   
       this.keys.forEach(key => {
         const keyColor = key.isBlack ? 0x000000 : 0xFFFFFF;
-        const keyImage = this.add.rectangle(key.x, key.isBlack ? 540 : 575, key.isBlack ? 30 : 48, key.isBlack ? 130 : 200, keyColor)
+        const keyImage = this.add.rectangle(key.x, key.isBlack ? 565 : 600, key.isBlack ? 30 : 48, key.isBlack ? 130 : 200, keyColor)
         if (key.isBlack) {
           keyImage.setDepth(1);
         }
@@ -125,36 +127,36 @@ export class St2_QuestionScene extends Phaser.Scene {
       });
 
       this.numkeys=[
-        { num: -12, x: 140, y: 350 },
-        { num: -11, x: 190, y: 350 },
-        { num: -10, x: 140, y: 350 },
-        { num: -9, x: 140, y: 350 },
-        { num: -8, x: 140, y: 350 },
-        { num: -7, x: 140, y: 350 },
-        { num: -6, x: 140, y: 350 },
-        { num: -5, x: 140, y: 350 },
-        { num: -4, x: 140, y: 350 },
-        { num: -3, x: 140, y: 350 },
-        { num: -2, x: 140, y: 350 },
-        { num: -1, x: 140, y: 350 },
-        { num: 1, x: 140, y: 350 },
-        { num: 2, x: 140, y: 350 },
-        { num: 3, x: 140, y: 350 },
-        { num: 4, x: 140, y: 350 },
-        { num: 5, x: 140, y: 350 },
-        { num: 6, x: 140, y: 350 },
-        { num: 7, x: 140, y: 350 },
-        { num: 8, x: 140, y: 350 },
-        { num: 9, x: 140, y: 350 },
-        { num: 10, x: 140, y: 350 },
-        { num: 11, x: 140, y: 350 },
-        { num: 12, x: 140, y: 350 },
+        { num: -12, x: 200, y: 375 },
+        { num: -11, x: 280, y: 375 },
+        { num: -10, x: 360, y: 375 },
+        { num: -9, x: 440, y: 375 },
+        { num: -8, x: 520, y: 375 },
+        { num: -7, x: 600, y: 375 },
+        { num: -6, x: 680, y: 375 },
+        { num: -5, x: 760, y: 375 },
+        { num: -4, x: 840, y: 375 },
+        { num: -3, x: 920, y: 375  },
+        { num: -2, x: 1000, y: 375 },
+        { num: -1, x: 1080, y: 375 },
+        { num: 1, x: 200, y: 455 },
+        { num: 2, x: 280, y: 455 },
+        { num: 3, x: 360, y: 455 },
+        { num: 4, x: 440, y: 455 },
+        { num: 5, x: 520, y: 455 },
+        { num: 6, x: 600, y: 455 },
+        { num: 7, x: 680, y: 455 },
+        { num: 8, x: 760, y: 455 },
+        { num: 9, x: 840, y: 455 },
+        { num: 10, x: 920, y: 455 },
+        { num: 11, x: 1000, y: 455 },
+        { num: 12, x: 1080, y: 455 },
       ];
       this.numkeys.forEach(numkey => {
-        new CustomButton(this, numkey.x, numkey.y, 50, 50, 0x00ff00, `${numkey.num}`, () => {
+        new CustomButton(this, numkey.x, numkey.y, 70, 70, 0x00ff00, `${numkey.num}`, () => {
           //console.log('Play button clicked');
           // numkeyボタンがクリックされた時の処理
-          this.scene.start('st2_answer', { correctNote: this.correctNote, keys: this.keys, questionCount: this.questionCount, score: this.score });
+          this.scene.start('st2_answer', { clickednum: numkey.num, correctnum: this.correctnum, fNote: this.fNote, sNote: this.sNote, numkeys: this.numkeys, keys: this.keys, questionCount: this.questionCount, score: this.score });
         });
       });
       
@@ -173,7 +175,7 @@ export class St2_QuestionScene extends Phaser.Scene {
       }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
 
       // 設定ボタンを追加
-      this.settingsButton = this.add.image(60, 60, 'settings_button').setInteractive({ useHandCursor: true }).setScale(0.4);;
+      this.settingsButton = this.add.image(60, 60, 'settings_button').setInteractive({ useHandCursor: true }).setScale(0.4);
       this.settingsButton.on('pointerdown', () => {
           this.scene.launch('SettingsPopup');
       });
@@ -187,10 +189,11 @@ export class St2_QuestionScene extends Phaser.Scene {
       const firstNote = whiteKeys[firstNoteIndex];
       const secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-4, 4);
       const secondNote = whiteKeys[secondNoteIndex];
-      this.correctNote = secondNote.note;
+      this.fNote = firstNote.note;
+      this.sNote = secondNote.note;
+      this.correctnum = secondNote.keynum - firstNote.keynum;
     
       this.sound.play(firstNote.note);
-      firstNote.image!.setFillStyle(0xADFF2F);
   
       this.time.delayedCall(1000, () => {
         this.sound.play(secondNote.note);
@@ -207,7 +210,6 @@ export class St2_QuestionScene extends Phaser.Scene {
           this.time.delayedCall(1000, () => {
           this.sound.play(secondNote);  
           });
-    });
-      
+    });      
   }
 }

@@ -70,51 +70,51 @@ export class St1_QuestionScene extends Phaser.Scene {
       this.cameras.main.setBackgroundColor(0xADD8E6);
 
       // ピアノのキーの部分の背景を黒に設定
-      const pianoBackground = this.add.rectangle(width / 2, 575, 1052, 204, 0x000000).setOrigin(0.5);
+      const pianoBackground = this.add.rectangle(width / 2, 600, 1052, 204, 0x000000).setOrigin(0.5);
   
       // キーの設定
       this.keys = [
-        { note: 'C0', x: 140, isBlack: false },
-        { note: 'C#0', x: 160, isBlack: true },
-        { note: 'D0', x: 190, isBlack: false },
-        { note: 'D#0', x: 220, isBlack: true },
-        { note: 'E0', x: 240, isBlack: false },
-        { note: 'F0', x: 290, isBlack: false },
-        { note: 'F#0', x: 310, isBlack: true },
-        { note: 'G0', x: 340, isBlack: false },
-        { note: 'G#0', x: 365, isBlack: true },
-        { note: 'A0', x: 390, isBlack: false },
-        { note: 'A#0', x: 420, isBlack: true },
-        { note: 'B0', x: 440, isBlack: false },
-        { note: 'C1', x: 490, isBlack: false },
-        { note: 'C#1', x: 510, isBlack: true },
-        { note: 'D1', x: 540, isBlack: false },
-        { note: 'D#1', x: 570, isBlack: true },
-        { note: 'E1', x: 590, isBlack: false },
-        { note: 'F1', x: 640, isBlack: false },
-        { note: 'F#1', x: 660, isBlack: true },
-        { note: 'G1', x: 690, isBlack: false },
-        { note: 'G#1', x: 715, isBlack: true },
-        { note: 'A1', x: 740, isBlack: false },
-        { note: 'A#1', x: 770, isBlack: true },
-        { note: 'B1', x: 790, isBlack: false },
-        { note: 'C2', x: 840, isBlack: false },
-        { note: 'C#2', x: 860, isBlack: true },
-        { note: 'D2', x: 890, isBlack: false },
-        { note: 'D#2', x: 920, isBlack: true },
-        { note: 'E2', x: 940, isBlack: false },
-        { note: 'F2', x: 990, isBlack: false },
-        { note: 'F#2', x: 1010, isBlack: true },
-        { note: 'G2', x: 1040, isBlack: false },
-        { note: 'G#2', x: 1065, isBlack: true },
-        { note: 'A2', x: 1090, isBlack: false },
-        { note: 'A#2', x: 1120, isBlack: true },
-        { note: 'B2', x: 1140, isBlack: false },
+        { note: 'C0', x: 140, isBlack: false, keynum: 0 },
+        { note: 'C#0', x: 160, isBlack: true, keynum: 1 },
+        { note: 'D0', x: 190, isBlack: false, keynum: 2 },
+        { note: 'D#0', x: 220, isBlack: true, keynum: 3 },
+        { note: 'E0', x: 240, isBlack: false, keynum: 4 },
+        { note: 'F0', x: 290, isBlack: false, keynum: 5 },
+        { note: 'F#0', x: 310, isBlack: true, keynum: 6 },
+        { note: 'G0', x: 340, isBlack: false, keynum: 7 },
+        { note: 'G#0', x: 365, isBlack: true, keynum: 8 },
+        { note: 'A0', x: 390, isBlack: false, keynum: 9 },
+        { note: 'A#0', x: 420, isBlack: true, keynum: 10 },
+        { note: 'B0', x: 440, isBlack: false, keynum: 11 },
+        { note: 'C1', x: 490, isBlack: false, keynum: 12 },
+        { note: 'C#1', x: 510, isBlack: true, keynum: 13 },
+        { note: 'D1', x: 540, isBlack: false, keynum: 14 },
+        { note: 'D#1', x: 570, isBlack: true, keynum: 15 },
+        { note: 'E1', x: 590, isBlack: false, keynum: 16 },
+        { note: 'F1', x: 640, isBlack: false, keynum: 17 },
+        { note: 'F#1', x: 660, isBlack: true, keynum: 18 },
+        { note: 'G1', x: 690, isBlack: false, keynum: 19 },
+        { note: 'G#1', x: 715, isBlack: true, keynum: 20 },
+        { note: 'A1', x: 740, isBlack: false, keynum: 21 },
+        { note: 'A#1', x: 770, isBlack: true, keynum: 22 },
+        { note: 'B1', x: 790, isBlack: false, keynum: 23 },
+        { note: 'C2', x: 840, isBlack: false, keynum: 24 },
+        { note: 'C#2', x: 860, isBlack: true, keynum: 25 },
+        { note: 'D2', x: 890, isBlack: false, keynum: 26 },
+        { note: 'D#2', x: 920, isBlack: true, keynum: 27 },
+        { note: 'E2', x: 940, isBlack: false, keynum: 28 },
+        { note: 'F2', x: 990, isBlack: false, keynum: 29 },
+        { note: 'F#2', x: 1010, isBlack: true, keynum: 30 },
+        { note: 'G2', x: 1040, isBlack: false, keynum: 31 },
+        { note: 'G#2', x: 1065, isBlack: true, keynum: 32 },
+        { note: 'A2', x: 1090, isBlack: false, keynum: 33 },
+        { note: 'A#2', x: 1120, isBlack: true, keynum: 34 },
+        { note: 'B2', x: 1140, isBlack: false, keynum: 35 },
       ];
   
       this.keys.forEach(key => {
         const keyColor = key.isBlack ? 0x000000 : 0xFFFFFF;
-        const keyImage = this.add.rectangle(key.x, key.isBlack ? 540 : 575, key.isBlack ? 30 : 48, key.isBlack ? 130 : 200, keyColor)
+        const keyImage = this.add.rectangle(key.x, key.isBlack ? 565 : 600, key.isBlack ? 30 : 48, key.isBlack ? 130 : 200, keyColor)
           .setInteractive({ useHandCursor: true });
   
         keyImage.on('pointerdown', () => {
@@ -174,7 +174,7 @@ export class St1_QuestionScene extends Phaser.Scene {
 
     private enableReplayButton(firstNote: string, secondNote: string) {
       // Playボタンを追加
-    new CustomButton(this, 640, 300, 200, 50, 0x00ff00, 'Replay', () => {
+    new CustomButton(this, 640, 400, 200, 50, 0x00ff00, 'Replay', () => {
       //console.log('Play button clicked');
       // Playボタンがクリックされた時の処理
       this.sound.play(firstNote);

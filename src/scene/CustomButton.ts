@@ -58,5 +58,10 @@ export class CustomButton extends Phaser.GameObjects.Container {
         // シーンにボタンを追加
         scene.add.existing(this);
     }
+
+    // 効果を無効にするメソッド
+    public disableEffects() {
+        this.buttonBackground.removeAllListeners();
+    }
 }
 

@@ -33,10 +33,10 @@ export class St1_AnswerScene extends Phaser.Scene {
         // 背景を設定
         this.cameras.main.setBackgroundColor(0xADD8E6);
         // ピアノのキーの部分の背景を黒に設定
-        const pianoBackground = this.add.rectangle(width / 2, 575, 1052, 204, 0x000000).setOrigin(0.5);
+        const pianoBackground = this.add.rectangle(width / 2, 600, 1052, 204, 0x000000).setOrigin(0.5);
 
         const resultMessage = isCorrect ? 'Correct!' : 'Wrong!';
-        this.resultText = this.add.text(width / 2, 200, resultMessage,{ 
+        this.resultText = this.add.text(width / 2, 250, resultMessage,{ 
             fontSize: '72px', 
             color: isCorrect ? '#00FF00' : '#FF0000', 
             fontStyle: 'bold', 
@@ -65,7 +65,7 @@ export class St1_AnswerScene extends Phaser.Scene {
         // キーを配置
         this.keys.forEach(key => {
             const keyColor = key.isBlack ? 0x000000 : 0xFFFFFF;
-            const keyImage = this.add.rectangle(key.x, key.isBlack ? 540 : 575, key.isBlack ? 30 : 48, key.isBlack ? 130 : 200, keyColor)
+            const keyImage = this.add.rectangle(key.x, key.isBlack ? 565 : 600, key.isBlack ? 30 : 48, key.isBlack ? 130 : 200, keyColor)
             .setInteractive({ useHandCursor: true });
             if (key.note === this.clickedNote && isCorrect===false) {
                 // 間違っていたとき、クリックしたキーを赤色に
@@ -99,11 +99,11 @@ export class St1_AnswerScene extends Phaser.Scene {
 
         // 次の問題へのボタン
         if (this.questionCount >= 3) {
-            new CustomButton(this, 640, 360, 300, 50, 0x00ff00, 'Ending', () => {
+            new CustomButton(this, 840, 400, 300, 50, 0x00ff00, 'Ending', () => {
                 this.scene.start('ending', { score: this.score });
               });
         } else {
-            new CustomButton(this, 640, 360, 300, 50, 0x00ff00, 'Next Question', () => {
+            new CustomButton(this, 840, 400, 300, 50, 0x00ff00, 'Next Question', () => {
                 this.scene.start('st1_question', { questionCount: this.questionCount + 1, score: this.score });
               });
         }
@@ -119,7 +119,7 @@ export class St1_AnswerScene extends Phaser.Scene {
     }
 
     private enableReplayButton(firstNote: string, secondNote: string) {
-        new CustomButton(this, 640, 430, 200, 50, 0x00ff00, 'Replay', () => {
+        new CustomButton(this, 440, 400, 300, 50, 0x00ff00, 'Replay', () => {
             // 対応するキーを検索
             const firstKey = this.keys.find(key => key.note === firstNote);
             const secondKey = this.keys.find(key => key.note === secondNote);

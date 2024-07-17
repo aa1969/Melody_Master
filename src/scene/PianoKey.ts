@@ -5,5 +5,6 @@ export interface PianoKey {
     image?: Phaser.GameObjects.Rectangle; // イメージオブジェクト
     color?: number;   // 色
     originalColor?: number; //変更した色を保存する用
+    keynum: number; //キーの差を計測するときに使う
   }
   
