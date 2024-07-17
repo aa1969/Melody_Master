@@ -184,11 +184,14 @@ export class St2_QuestionScene extends Phaser.Scene {
     }
   
     private presentQuestion() {
-      const whiteKeys = this.keys.filter(key => !key.isBlack);
-      const firstNoteIndex = Phaser.Math.RND.between(5, whiteKeys.length - 5);
-      const firstNote = whiteKeys[firstNoteIndex];
-      const secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-4, 4);
-      const secondNote = whiteKeys[secondNoteIndex];
+      const keys = this.keys;
+      const firstNoteIndex = Phaser.Math.RND.between(5, keys.length - 5);
+      const firstNote = keys[firstNoteIndex];
+      let secondNoteIndex;
+      do {
+        secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-4, 4);
+      } while (secondNoteIndex === firstNoteIndex);
+      const secondNote = keys[secondNoteIndex];
       this.fNote = firstNote.note;
       this.sNote = secondNote.note;
       this.correctnum = secondNote.keynum - firstNote.keynum;
