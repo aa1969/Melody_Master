@@ -5,6 +5,7 @@ export class St1_AnswerScene extends Phaser.Scene {
     private keys: PianoKey[] = [];
     private fNote: string | null = null;
     private sNote: string | null = null;
+    private StageLevel: number = 0;
     private clickedNote: string | null = null;
     private questionCount: number = 0;
     private score: number = 0;
@@ -20,6 +21,7 @@ export class St1_AnswerScene extends Phaser.Scene {
     init(data: any) {
         this.fNote = data.fNote;
         this.sNote = data.sNote;
+        this.StageLevel = data.StageLevel;
         this.clickedNote = data.clickedNote;
         this.keys = data.keys;
         this.questionCount = data.questionCount;
@@ -104,7 +106,7 @@ export class St1_AnswerScene extends Phaser.Scene {
               });
         } else {
             new CustomButton(this, 840, 400, 300, 50, 0x00ff00, 'Next Question', () => {
-                this.scene.start('st1_question', { questionCount: this.questionCount + 1, score: this.score });
+                this.scene.start('st1_question', { StageLevel: this.StageLevel, questionCount: this.questionCount + 1, score: this.score });
               });
         }
 

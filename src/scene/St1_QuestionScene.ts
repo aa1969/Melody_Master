@@ -2,7 +2,8 @@ import { PianoKey } from './PianoKey';
 import { CustomButton } from './CustomButton';
 
 export class St1_QuestionScene extends Phaser.Scene {
-    private keys: PianoKey[] = [];   
+    private keys: PianoKey[] = [];
+    private StageLevel: number = 0;   
     private fNote: string | null = null;
     private sNote: string | null = null;
     private questionCount: number = 0;
@@ -17,6 +18,7 @@ export class St1_QuestionScene extends Phaser.Scene {
     }
 
     init(data: any) {
+      this.StageLevel = data.StageLevel;
       this.questionCount = data.questionCount;
       this.score = data.score;
     }
@@ -120,7 +122,9 @@ export class St1_QuestionScene extends Phaser.Scene {
         keyImage.on('pointerdown', () => {
           this.sound.play(key.note);
           keyImage.setFillStyle(0xADFF2F);
-          this.scene.start('st1_answer', { clickedNote: key.note, fNote: this.fNote, sNote: this.sNote, keys: this.keys, questionCount: this.questionCount, score: this.score });
+          this.scene.start('st1_answer', { StageLevel: this.StageLevel, clickedNote: key.note, fNote: this.fNote, 
+                                          sNote: this.sNote, keys: this.keys, 
+                                          questionCount: this.questionCount, score: this.score });
         });
   
         if (key.isBlack) {
@@ -151,15 +155,37 @@ export class St1_QuestionScene extends Phaser.Scene {
           this.scene.launch('SettingsPopup');
       });
 
-      this.presentQuestion();
+      this.presentQuestion(this.StageLevel);
     }
   
-    private presentQuestion() {
+    private presentQuestion(StageLevel: number) {
+      const keys = this.keys;
       const whiteKeys = this.keys.filter(key => !key.isBlack);
-      const firstNoteIndex = Phaser.Math.RND.between(5, whiteKeys.length - 5);
-      const firstNote = whiteKeys[firstNoteIndex];
-      const secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-4, 4);
-      const secondNote = whiteKeys[secondNoteIndex];
+      let firstNoteIndex;
+      let secondNoteIndex;
+      let firstNote: any;
+      let secondNote: any;
+      if(StageLevel === 1){ 
+        firstNoteIndex = Phaser.Math.RND.between(3, whiteKeys.length - 3);
+        do {
+          secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-3, 3);
+          firstNote = whiteKeys[firstNoteIndex];
+          secondNote = whiteKeys[secondNoteIndex];
+        } while (secondNoteIndex === firstNoteIndex);}
+      if(StageLevel === 2){ 
+        firstNoteIndex = Phaser.Math.RND.between(8, whiteKeys.length - 8);
+        do {
+          secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-8, 8);
+          firstNote = keys[firstNoteIndex];
+          secondNote = keys[secondNoteIndex];
+        } while (secondNoteIndex === firstNoteIndex);}
+      if(StageLevel === 3){ 
+        firstNoteIndex = Phaser.Math.RND.between(12, whiteKeys.length - 12);
+        do {
+          secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-12, 12);
+          firstNote = keys[firstNoteIndex];
+          secondNote = keys[secondNoteIndex];
+        } while (secondNoteIndex === firstNoteIndex);}       
       this.fNote = firstNote.note;
       this.sNote = secondNote.note;
     

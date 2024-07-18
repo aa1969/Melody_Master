@@ -5,6 +5,7 @@ import { CustomButton } from './CustomButton';
 export class St2_AnswerScene extends Phaser.Scene {
     private keys: PianoKey[] = [];
     private numkeys: NumberKey[] = [];
+    private StageLevel: number = 0;
     private fNote: string | null = null;
     private sNote: string | null = null;
     private clickednum: number = 0;
@@ -25,6 +26,7 @@ export class St2_AnswerScene extends Phaser.Scene {
         this.sNote = data.sNote;
         this.keys = data.keys;
         this.numkeys = data.numkeys;
+        this.StageLevel = data.StageLevel;
         this.clickednum = data.clickednum;
         this.correctnum = data.correctnum;
         this.questionCount = data.questionCount;
@@ -119,7 +121,7 @@ export class St2_AnswerScene extends Phaser.Scene {
               });
         } else {
             new CustomButton(this, 840, 280, 300, 50, 0x00ff00, 'Next Question', () => {
-                this.scene.start('st2_question', { questionCount: this.questionCount + 1, score: this.score });
+                this.scene.start('st2_question', { StageLevel: this.StageLevel, questionCount: this.questionCount + 1, score: this.score });
               });
         }
 
@@ -135,7 +137,7 @@ export class St2_AnswerScene extends Phaser.Scene {
 
 
     private enableReplayButton(firstNote: string, secondNote: string) {
-        new CustomButton(this, 440, 280, 300, 50, 0x00ff00, 'Replay', () => {
+        new CustomButton(this, 440, 280, 300, 50, 0x00ff00, 'Check Answer', () => {
             // 対応するキーを検索
             const firstKey = this.keys.find(key => key.note === firstNote);
             const secondKey = this.keys.find(key => key.note === secondNote);
