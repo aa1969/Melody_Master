@@ -1,5 +1,5 @@
 {
-  "name": "jackhack2024_i",
+  "name": "aa1969",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jack-app/jackHack2024_I.git"
+    "url": "git+https://github.com/aa1969/piano"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jack-app/jackHack2024_I/issues"
+    "url": "https://github.com/aa1969/piano/issues"
   },
-  "homepage": "https://github.com/jack-app/jackHack2024_I#readme",
+  "homepage": "https://github.com/aa1960/piano#readme",
   "dependencies": {
     "phaser": "^3.80.1"
   },
