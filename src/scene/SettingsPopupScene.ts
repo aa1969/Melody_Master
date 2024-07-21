@@ -1,5 +1,5 @@
+import { CustomButton } from './CustomButton';
 export class SettingsPopupScene extends Phaser.Scene {
-    private volume: number = 0.5;
     private sliderHandle: Phaser.GameObjects.Rectangle | null = null;
 
     constructor() {
@@ -17,11 +17,11 @@ export class SettingsPopupScene extends Phaser.Scene {
             fontStyle: 'bold', 
             fontFamily: 'Arial' 
             }).setOrigin(0.5);
-        const closeButton = this.add.text(width / 2 + 180, height / 2 - 130, 'X', { fontSize: '32px', color: '#FF0000' }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
-        closeButton.on('pointerdown', () => {
+        // Backボタンを追加
+        new CustomButton(this, width / 2 + 160, height / 2 - 120, 40, 40, 0xFF0000, 'X', () => {
             this.scene.stop('SettingsPopup');
-        });
+            });
 
         // スライダーの背景を作成
         const sliderBackground = this.add.rectangle(width / 2, height / 2, 300, 20, 0xCCCCCC).setOrigin(0.5);

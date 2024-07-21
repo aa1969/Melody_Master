@@ -56,18 +56,19 @@ export class St2_AnswerScene extends Phaser.Scene {
         }
 
         //問題番号とスコア
-        this.scoretext = this.add.text(width / 2, 50, `Score: ${this.score}`,{ 
+        this.questiontext = this.add.text(width / 2, 50, `question:  ${this.questionCount}`,{ 
             fontSize: '48px', 
             color: '#ffffff', 
             fontStyle: 'bold', 
             fontFamily: 'Arial' 
             }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
-        this.questiontext = this.add.text(width / 2, 100, `question:  ${this.questionCount}`,{ 
+        this.scoretext = this.add.text(width / 2, 100, `Score: ${this.score}`,{ 
             fontSize: '48px', 
             color: '#ffffff', 
             fontStyle: 'bold', 
             fontFamily: 'Arial' 
             }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
+        
 
         // ピアノキーを配置
         this.keys.forEach(key => {
@@ -115,7 +116,7 @@ export class St2_AnswerScene extends Phaser.Scene {
         });
 
         // 次の問題へのボタン
-        if (this.questionCount >= 3) {
+        if (this.questionCount > 9) {
             new CustomButton(this, 840, 280, 300, 50, 0x00ff00, 'Ending', () => {
                 this.scene.start('ending', { score: this.score });
               });

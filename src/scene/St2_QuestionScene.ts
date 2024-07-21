@@ -165,22 +165,24 @@ export class St2_QuestionScene extends Phaser.Scene {
       });
       
       //問題番号とスコア
-      this.scoretext = this.add.text(width / 2, 50, `Score: ${this.score}`,{ 
+      this.questiontext = this.add.text(width / 2, 50, `question:  ${this.questionCount}`,{ 
         fontSize: '48px', 
         color: '#ffffff', 
         fontStyle: 'bold', 
         fontFamily: 'Arial' 
       }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
-      this.questiontext = this.add.text(width / 2, 100, `question:  ${this.questionCount}`,{ 
+      this.scoretext = this.add.text(width / 2, 100, `Score: ${this.score}`,{ 
         fontSize: '48px', 
         color: '#ffffff', 
         fontStyle: 'bold', 
         fontFamily: 'Arial' 
       }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
+      
 
       // 設定ボタンを追加
       this.settingsButton = this.add.image(60, 60, 'settings_button').setInteractive({ useHandCursor: true }).setScale(0.4);
       this.settingsButton.on('pointerdown', () => {
+        //this.scene.stop('st2_question'); 
           this.scene.launch('SettingsPopup');
       });
 

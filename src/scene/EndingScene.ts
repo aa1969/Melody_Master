@@ -27,7 +27,7 @@ export class EndingScene extends Phaser.Scene {
 
       // リスタートボタンを追加
       new CustomButton(this, width / 2, height / 2 + 200, 300, 50, 0x00ff00, 'Go back title', () => {
-        this.scene.start('title', { questionCount: 0, score: 0 });
+        this.scene.start('title', { questionCount: 1, score: 0 });
       });
   }
 }

@@ -1,6 +1,6 @@
 import { CustomButton } from './CustomButton';
 export class StageScene extends Phaser.Scene {
-  private questionCount: number = 0;
+  private questionCount: number = 1;
   private score: number = 0;
 
   constructor() {
@@ -51,6 +51,10 @@ export class StageScene extends Phaser.Scene {
     });
     new CustomButton(this, width / 2 + 150, 540, 200, 50, 0x00ff00, 'Level 3', () => {
       this.scene.start('st2_question', { StageLevel: 3, questionCount: this.questionCount, score: this.score });
-    });    
+    }); 
+    // Backボタンを追加
+    new CustomButton(this, width / 2, height / 2 + 270, 200, 50, 0x00ff00, 'Back', () => {
+      this.scene.start('title');
+    });   
   }
 }
