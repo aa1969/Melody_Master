@@ -21,36 +21,54 @@ export class StageScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(0xADD8E6);
 
     //ステージ名を追加
-    this.add.text(width / 2 - 150, 100, `Stage 1`,{ 
+    this.add.text(width / 2 - 400, 100, `Stage 1`,{ 
+      fontSize: '48px', 
+      color: '#ffffff', 
+      fontStyle: 'bold', 
+      fontFamily: 'Arial' 
+      }).setOrigin(0.5).setShadow(2, 2, '#990000', 2);
+    this.add.text(width / 2 - 150, 200, `二音目の鍵盤を当ててください`,{ 
       fontSize: '48px', 
       color: '#ffffff', 
       fontStyle: 'bold', 
       fontFamily: 'Arial' 
       }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
-    this.add.text(width / 2 - 150, 400, `Stage 2`,{ 
+    this.add.text(width / 2 - 400, 400, `Stage 2`,{ 
       fontSize: '48px', 
       color: '#ffffff', 
       fontStyle: 'bold', 
       fontFamily: 'Arial' 
+      }).setOrigin(0.5).setShadow(2, 2, '#990000', 2);
+    this.add.text(width / 2 - 150, 500, `二音の差を当ててください`,{ 
+      fontSize: '48px', 
+      color: '#ffffff', 
+      fontStyle: 'bold', 
+       fontFamily: 'Arial' 
       }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
+    this.add.text(width / 2 - 150, 550, `(二音目  －  一音目)`,{ 
+      fontSize: '48px', 
+      color: '#ffffff', 
+      fontStyle: 'bold', 
+       fontFamily: 'Arial' 
+      }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);   
 
     // 各ステージ開始ボタンを追加
-    new CustomButton(this, width / 2 + 150, 100, 200, 50, 0x00ff00, 'Level 1', () => {
+    new CustomButton(this, width / 2 + 350, 100, 200, 50, 0x00ff00, 'Level 1', () => {
       this.scene.start('st1_question', { stageLevel: 1, questionCount: this.questionCount, score: this.score });
     });
-    new CustomButton(this, width / 2 + 150, 170, 200, 50, 0x00ff00, 'Level 2', () => {
+    new CustomButton(this, width / 2 + 350, 170, 200, 50, 0x00ff00, 'Level 2', () => {
       this.scene.start('st1_question', { stageLevel: 2, questionCount: this.questionCount, score: this.score });
     });
-    new CustomButton(this, width / 2 + 150, 240, 200, 50, 0x00ff00, 'Level 3', () => {
+    new CustomButton(this, width / 2 + 350, 240, 200, 50, 0x00ff00, 'Level 3', () => {
       this.scene.start('st1_question', { stageLevel: 3, questionCount: this.questionCount, score: this.score });
     });
-    new CustomButton(this, width / 2 + 150, 400, 200, 50, 0x00ff00, 'Level 1', () => {
+    new CustomButton(this, width / 2 + 350, 400, 200, 50, 0x00ff00, 'Level 1', () => {
       this.scene.start('st2_question', { stageLevel: 1, questionCount: this.questionCount, score: this.score });
     });
-    new CustomButton(this, width / 2 + 150, 470, 200, 50, 0x00ff00, 'Level 2', () => {
+    new CustomButton(this, width / 2 + 350, 470, 200, 50, 0x00ff00, 'Level 2', () => {
       this.scene.start('st2_question', { stageLevel: 2, questionCount: this.questionCount, score: this.score });
     });
-    new CustomButton(this, width / 2 + 150, 540, 200, 50, 0x00ff00, 'Level 3', () => {
+    new CustomButton(this, width / 2 + 350, 540, 200, 50, 0x00ff00, 'Level 3', () => {
       this.scene.start('st2_question', { stageLevel: 3, questionCount: this.questionCount, score: this.score });
     }); 
     // Backボタンを追加
