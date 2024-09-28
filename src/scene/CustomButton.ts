@@ -1,3 +1,5 @@
+//カスタムボタンを実装
+
 export class CustomButton extends Phaser.GameObjects.Container {
     private buttonBackground: Phaser.GameObjects.Graphics;
     private buttonText: Phaser.GameObjects.Text;

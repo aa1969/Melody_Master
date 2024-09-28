@@ -1,4 +1,6 @@
 import { CustomButton } from './CustomButton';
+
+//タイトルシーン
 export class TitleScene extends Phaser.Scene {
 
   constructor() {
@@ -10,6 +12,7 @@ export class TitleScene extends Phaser.Scene {
   }
 
   create() {
+    //画面の大きさを取得
     const { width, height } = this.game.canvas;
 
     // 背景を追加

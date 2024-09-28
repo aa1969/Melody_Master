@@ -1,31 +1,33 @@
 import { PianoKey } from './PianoKey';
 import { CustomButton } from './CustomButton';
 
+//ステージ１の問題を作成するシーン
 export class St1_QuestionScene extends Phaser.Scene {
-    private keys: PianoKey[] = [];
-    private StageLevel: number = 0;   
-    private fNote: string | null = null;
-    private sNote: string | null = null;
-    private questionCount: number = 0;
-    private score: number = 0;
-    private scoretext: Phaser.GameObjects.Text | null = null;
-    private questiontext: Phaser.GameObjects.Text | null = null;
-
-    private settingsButton: Phaser.GameObjects.Image | null = null;
+    private keys: PianoKey[] = []; //キーを格納する配列
+    private stageLevel: number = 0; //ステージレベル
+    private fNote: string | null = null; //一音目
+    private sNote: string | null = null; //二音目
+    private questionCount: number = 0; //問題数
+    private score: number = 0; //得点数
+    private scoreText: Phaser.GameObjects.Text | null = null; //得点表示
+    private questionText: Phaser.GameObjects.Text | null = null; //問題数表示
+    private settingsButton: Phaser.GameObjects.Image | null = null; //音量設定ボタン表示
   
     constructor() {
       super('st1_question');
     }
 
+    //前のシーンからデータを受け取る
     init(data: any) {
-      this.StageLevel = data.StageLevel;
-      this.questionCount = data.questionCount;
-      this.score = data.score;
+      this.stageLevel = data.stageLevel; //ステージレベル
+      this.questionCount = data.questionCount; //問題数
+      this.score = data.score; //得点数
     }
   
     preload() {
+      //設定ボタンのイメージ画像を入手
       this.load.image('settings_button', 'assets/settings_button.png');
-      // 音声ファイルのロード（省略）
+      // 音声ファイルのロード
       this.load.audio('C0', 'assets/C0.mp3');
       this.load.audio('C#0', 'assets/Csharp0.mp3');
       this.load.audio('D0', 'assets/D0.mp3');
@@ -65,8 +67,9 @@ export class St1_QuestionScene extends Phaser.Scene {
     }
   
     create() {
-      const { width, height } = this.game.canvas;
-      console.log('Q');
+      //画面の大きさを取得      
+      const { width, height } = this.game.canvas; 
+      //console.log('1');
 
       // 背景を黄色に設定
       this.cameras.main.setBackgroundColor(0xADD8E6);
@@ -115,34 +118,39 @@ export class St1_QuestionScene extends Phaser.Scene {
       ];
   
       this.keys.forEach(key => {
-        const keyColor = key.isBlack ? 0x000000 : 0xFFFFFF;
+        //白鍵と黒鍵の色を設定
+        const keyColor = key.isBlack ? 0x000000 : 0xFFFFFF; 
+
+        //白鍵と黒鍵の大きさと場所を設定
         const keyImage = this.add.rectangle(key.x, key.isBlack ? 565 : 600, key.isBlack ? 30 : 48, key.isBlack ? 130 : 200, keyColor)
           .setInteractive({ useHandCursor: true });
   
         keyImage.on('pointerdown', () => {
           this.sound.play(key.note);
           keyImage.setFillStyle(0xADFF2F);
-          this.scene.start('st1_answer', { StageLevel: this.StageLevel, clickedNote: key.note, fNote: this.fNote, 
+          //answerSceneへ(ステージレベル、押されたキー、一音目、二音目、鍵盤の配列、現在の問題番号、現在の得点)
+          this.scene.start('st1_answer', { stageLevel: this.stageLevel, clickedNote: key.note, fNote: this.fNote, 
                                           sNote: this.sNote, keys: this.keys, 
                                           questionCount: this.questionCount, score: this.score });
         });
-  
+
+        //黒鍵を白鍵の上に置く
         if (key.isBlack) {
           keyImage.setDepth(1);
         }
-  
+        //キーのイメージオブジェクトと色を保存
         key.image = keyImage;
         key.color = keyColor;
       });
       
-      //問題番号とスコア
-      this.questiontext = this.add.text(width / 2, 50, `question:  ${this.questionCount}`,{ 
+      //問題番号とスコアを表示
+      this.questionText = this.add.text(width / 2, 50, `question:  ${this.questionCount}`,{ 
         fontSize: '48px', 
         color: '#ffffff', 
         fontStyle: 'bold', 
         fontFamily: 'Arial' 
       }).setOrigin(0.5).setShadow(2, 2, '#000000', 2);
-      this.scoretext = this.add.text(width / 2, 100, `Score: ${this.score}`,{ 
+      this.scoreText = this.add.text(width / 2, 100, `Score: ${this.score}`,{ 
         fontSize: '48px', 
         color: '#ffffff', 
         fontStyle: 'bold', 
@@ -151,62 +159,87 @@ export class St1_QuestionScene extends Phaser.Scene {
       
 
       // 設定ボタンを追加
-      this.settingsButton = this.add.image(60, 60, 'settings_button').setInteractive({ useHandCursor: true }).setScale(0.4);;
+      this.settingsButton = this.add.image(60, 60, 'settings_button').setInteractive({ useHandCursor: true }).setScale(0.4);
       this.settingsButton.on('pointerdown', () => {
           this.scene.launch('SettingsPopup');
       });
 
-      this.presentQuestion(this.StageLevel);
+      //問題作成
+      this.presentQuestion(this.stageLevel);
     }
-  
-    private presentQuestion(StageLevel: number) {
-      const keys = this.keys;
-      const whiteKeys = this.keys.filter(key => !key.isBlack);
-      let firstNoteIndex;
-      let secondNoteIndex;
-      let firstNote: any;
-      let secondNote: any;
-      if(StageLevel === 1){ 
+
+    //問題を作成する関数(入力: ステージレベル)
+    private presentQuestion(stageLevel: number) {
+      const keys = this.keys; //全鍵盤の配列
+      const whiteKeys = this.keys.filter(key => !key.isBlack); //白鍵だけを抽出した配列
+      let firstNoteIndex; //一音目のインデックス
+      let secondNoteIndex; //二音目のインデックス
+      let firstNote: any; //一音目のキー
+      let secondNote: any; //ニ音目のキー
+
+      if(stageLevel === 1){
+        //ステージレベルが1のとき、一音目のインデックスを (3 ~ 白鍵の最大インデックス-3) で生成 
         firstNoteIndex = Phaser.Math.RND.between(3, whiteKeys.length - 3);
         do {
+          //二音目のインデックスを一音目のインデックス + (-3 ~ 3)で生成
           secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-3, 3);
           firstNote = whiteKeys[firstNoteIndex];
           secondNote = whiteKeys[secondNoteIndex];
-        } while (secondNoteIndex === firstNoteIndex);}
-      if(StageLevel === 2){ 
-        firstNoteIndex = Phaser.Math.RND.between(8, whiteKeys.length - 8);
+          //console.log('f',firstNoteIndex, 's', secondNoteIndex);
+        } while (secondNoteIndex === firstNoteIndex); //一音目と二音目のインデックスが同じときもう一度この処理を行う
+      }
+
+      if(stageLevel === 2){
+        //ステージレベルが2のとき、一音目のインデックスを (8 ~ 全鍵盤の最大インデックス-8) で生成 
+        firstNoteIndex = Phaser.Math.RND.between(8, keys.length - 8);
         do {
+          //二音目のインデックスを一音目のインデックス + (-8 ~ 8)で生成
           secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-8, 8);
           firstNote = keys[firstNoteIndex];
           secondNote = keys[secondNoteIndex];
-        } while (secondNoteIndex === firstNoteIndex);}
-      if(StageLevel === 3){ 
-        firstNoteIndex = Phaser.Math.RND.between(12, whiteKeys.length - 12);
+          //console.log('f',firstNoteIndex, 's', secondNoteIndex);
+        } while (secondNoteIndex === firstNoteIndex); //一音目と二音目のインデックスが同じときもう一度この処理を行う
+      }
+
+      if(stageLevel === 3){
+        //ステージレベルが3のとき、一音目のインデックスを (12 ~ 全鍵盤の最大インデックス-12) で生成 
+        firstNoteIndex = Phaser.Math.RND.between(12, keys.length - 12);
         do {
+          //二音目のインデックスを一音目のインデックス + (-12 ~ 12)で生成
           secondNoteIndex = firstNoteIndex + Phaser.Math.RND.between(-12, 12);
           firstNote = keys[firstNoteIndex];
           secondNote = keys[secondNoteIndex];
-        } while (secondNoteIndex === firstNoteIndex);}       
+          //console.log('f',firstNoteIndex, 's', secondNoteIndex);
+        } while (secondNoteIndex === firstNoteIndex); //一音目と二音目のインデックスが同じときもう一度この処理を行う
+      }
+
+      //一音目と二音目を保存         
       this.fNote = firstNote.note;
       this.sNote = secondNote.note;
-    
-      this.sound.play(firstNote.note);
-      firstNote.image!.setFillStyle(0xADFF2F);
+
+      this.sound.play(firstNote.note); //一音目を鳴らす
+      firstNote.image!.setFillStyle(0xADFF2F); //一音目の鍵盤の色を変える
+
+      
   
       this.time.delayedCall(1000, () => {
+        //1000ms後、二音目を鳴らす
         this.sound.play(secondNote.note);
-        this.enableReplayButton(firstNote.note, secondNote.note);
+        this.enableReplayButton(firstNote.note, secondNote.note); //リプレイボタンを押せるようにする
       });
     }
 
+    //リプレイボタンを実装する関数(入力: 一音目、二音目)
     private enableReplayButton(firstNote: string, secondNote: string) {
       // Playボタンを追加
     new CustomButton(this, 640, 400, 200, 50, 0x00ff00, 'Replay', () => {
       //console.log('Play button clicked');
       // Playボタンがクリックされた時の処理
+      //一音目を鳴らす
       this.sound.play(firstNote);
+          //1000ms後、二音目を鳴らす
           this.time.delayedCall(1000, () => {
-          this.sound.play(secondNote);  
+          this.sound.play(secondNote);
           });
     });
       

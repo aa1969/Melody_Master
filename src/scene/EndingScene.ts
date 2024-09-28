@@ -1,4 +1,6 @@
 import { CustomButton } from './CustomButton';
+
+//エンディングシーン
 export class EndingScene extends Phaser.Scene {
   private score: number = 0;
   private endText: Phaser.GameObjects.Text | null = null;
@@ -12,6 +14,7 @@ export class EndingScene extends Phaser.Scene {
   }
 
   create() {
+      //画面の大きさを取得
       const { width, height } = this.game.canvas;
 
       // 背景を設定

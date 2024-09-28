@@ -1,4 +1,6 @@
 import { CustomButton } from './CustomButton';
+
+//クレジットを表示するシーン
 export class CreditScene extends Phaser.Scene {
 
   constructor() {
@@ -10,12 +12,13 @@ export class CreditScene extends Phaser.Scene {
   }
 
   create() {
+    //画面の大きさを取得
     const { width, height } = this.game.canvas;
 
     // 背景を追加
     this.cameras.main.setBackgroundColor(0xADD8E6);
 
-
+    //テキストを追加
     this.add.text(width / 2, 100, `Created by Shun Ando`,{ 
         fontSize: '48px', 
         color: '#ffffff', 

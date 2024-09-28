@@ -1,4 +1,6 @@
 import { CustomButton } from './CustomButton';
+
+//設定用ポップアップを実装
 export class SettingsPopupScene extends Phaser.Scene {
     private sliderHandle: Phaser.GameObjects.Rectangle | null = null;
 
@@ -7,6 +9,7 @@ export class SettingsPopupScene extends Phaser.Scene {
     }
 
     create() {
+        //画面の大きさを取得
         const { width, height } = this.game.canvas;
 
         // ポップアップの背景を作成
